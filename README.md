@@ -46,7 +46,7 @@ GAN reaches Nash equilibrium when the following conditions are met:
 **NOTE** Nash equilibrium is named after the American economist and mathematician *John Forbes Nash Jr.*, whose life story and career were captured in the biography titled A *Beautiful Mind* and inspired the eponymous film.
 
 ## **Autoencoders**
-![Autoencoder](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/autoencoder.svg)
+![Autoencoder](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/autoencoder2.svg)
 
 
 ## References
