@@ -82,10 +82,9 @@ In practice, this means VAEs sample from the learned latent distribution, genera
 ### Kullback–Leibler divergence
 In mathematical statistics, the ***Kullback–Leibler (KL) divergence*** (also called ***relative entropy*** and ***I-divergence***), is a type of statistical distance: a measure of how one reference probability distribution ***P*** is different from a second probability distribution ***Q***. Mathematically, it is defined as
 
-
-<p align="center">
-  <img src="https://latex.codecogs.com/png.latex?D_{\text{KL}}(P\parallel%20Q)%20=%20\sum_{x%20\in%20\xi}%20P(x)%20\log\left(\frac{P(x)}{Q(x)}\right)" alt="KL Divergence Equation">
-</p>
+$$
+D_{\text{KL}}(P\parallel Q) = \sum_{x \in \xi} P(x) \log \left( \frac{P(x)}{Q(x)} \right)
+$$
 
 ## References
 - [GANs in Action](https://www.google.de/books/edition/GANs_in_Action/HojvugEACAAJ?hl=en)
