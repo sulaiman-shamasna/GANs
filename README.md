@@ -46,7 +46,45 @@ GAN reaches Nash equilibrium when the following conditions are met:
 **NOTE** Nash equilibrium is named after the American economist and mathematician *John Forbes Nash Jr.*, whose life story and career were captured in the biography titled A *Beautiful Mind* and inspired the eponymous film.
 
 ## **Autoencoders**
+
+### Autoencoder Structure
+
+By looking at the structure of an autoencoder, images are used as an example, this structure, however, aoolies in other cases, e.g., language, etc. As of any other advancement in machine learning, the high-level idea of autoencoders is intuitive and follows three main steps illustrated in the figure bellow.
+
+**DEFINISION** The *latent space* is the hidden representation of the data. Rather than expressing words or images in their uncompressed versions, an autoencoder compresses and clusters them based on its understanding of the data.
+
 ![Autoencoder](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/autoencoder2.svg)
+
+
+1. ***Encoder network***: A representation *X* is taken then the dimension is reduced from *y* to *z* by using learnt encoder (typically, a one-or many-layer neural network).
+2. ***Latent space (z)***: As training goes on, the latent space is being established to have some meaning. Latent space is typically a representation of a smaller dimension and acts as an intermediate step. In this representation of this data, the autoencoder is trying to “organize its thoughts”.
+3. ***Decoder network***: By using the decoder, the original object is reconstructed into the original dimension. This is typically done by a neural network that is a
+mirror image of the encoder, which is the step from z to x*. A reversed process is applied of the encoding to get back, e.g., a 784 pixel-values long recon-
+structed vector (of a 28 × 28 image) from the 256 pixel-values long vector of the
+latent space.
+
+### Example of Autoencoder Training
+1. We take images *x* and feed them through the autoencoder.
+2. We get out *x´*, reconstruction of the images.
+3. We measure the reconstruction loss—the difference between *x* and *x´*.
+    -   This is done using a distance (for example, mean average error) between the pixels of *x* and *x´*.
+    - This gives us an explicit objective function - *reconstruction loss* (*|| *x* –*x´* ||*) to optimize via a version of gradient descent.
+
+So we are trying to find the parameters of the encoder and the decoder that would
+minimize the reconstruction loss that we update by using gradient descent
+
+### Variational Autoencoders - (VAEs)
+The primary difference between a *Variational Autoencoder (VAE)* and a normal autoencoder lies in the representation of the latent space. A *VAE* models the latent space as a distribution characterized by a learned mean and standard deviation, typically using a *multivariate Gaussian distribution*. This approach is rooted in Bayesian machine learning, where the goal is to learn the parameters of this distribution rather than simply an array of numbers.
+
+In practice, this means VAEs sample from the learned latent distribution, generating values that are then processed by the decoder to produce new examples that resemble the original dataset.
+
+
+### Kullback–Leibler divergence
+In mathematical statistics, the ***Kullback–Leibler (KL) divergence*** (also called ***relative entropy*** and ***I-divergence***), is a type of statistical distance: a measure of how one reference probability distribution ***P*** is different from a second probability distribution ***Q***. Mathematically, it is defined as
+$$
+{\displaystyle D_{\text{KL}}(P\parallel Q)} = \sum_{x \in \xi} P(x) log \left( \frac{P(x)}{Q(x)}\right)
+$$
+
 
 
 ## References
