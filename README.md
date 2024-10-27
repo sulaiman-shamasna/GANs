@@ -44,5 +44,10 @@ GAN reaches Nash equilibrium when the following conditions are met:
 - The Discriminator can at best randomly guess whether a particular example is real or fake (that is, make a 50/50 guess whether an example is real).
 
 **NOTE** Nash equilibrium is named after the American economist and mathematician *John Forbes Nash Jr.*, whose life story and career were captured in the biography titled A *Beautiful Mind* and inspired the eponymous film.
+
+## **Autoencoders**
+![Autoencoder](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/autoencoder.svg)
+
+
 ## References
 - [GANs in Action](https://www.google.de/books/edition/GANs_in_Action/HojvugEACAAJ?hl=en)
