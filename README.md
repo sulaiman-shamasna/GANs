@@ -24,12 +24,12 @@ The Figure bellow illustrates tow fundamintal steps in training *GANs*.
 ![trainin_gans2.PNG](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/gen_disc_train2.svg)
 
 
-1. **Training the Discriminator**.
+1. ***Training the Discriminator***.
     - Take a random real example *X* from the training dataset.
     - Get a new random noise vector *Z* and, using the Generator network, synthesize a fake example *X´*.
     - Use the Discriminator network to classify *X* and *X´*.
     - Compute the classification errors and backpropagate the total error to update the Discriminator weights and biases, seeking to *minimize* the classification errors.
-2. **Training the Generator**.
+2. ***Training the Generator***.
     - Get a new random noise vector *Z* and, using the Generator network, synthesize a fake example *X´*.
     - Use the Discriminator network to classify *X´*.
     - Compute the classification error and backpropagate the error to update the Generator weights and biases, seeking to *maximize* the Discriminator's error.
@@ -43,5 +43,6 @@ GAN reaches Nash equilibrium when the following conditions are met:
 - The Generator produces fake examples that are indistinguishable from the real data in the training dataset.
 - The Discriminator can at best randomly guess whether a particular example is real or fake (that is, make a 50/50 guess whether an example is real).
 
+**NOTE** Nash equilibrium is named after the American economist and mathematician *John Forbes Nash Jr.*, whose life story and career were captured in the biography titled A *Beautiful Mind* and inspired the eponymous film.
 ## References
 - [GANs in Action](https://www.google.de/books/edition/GANs_in_Action/HojvugEACAAJ?hl=en)
