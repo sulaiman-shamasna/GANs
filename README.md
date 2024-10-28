@@ -120,7 +120,7 @@ The Discriminator’s classifications can be expressed in terms of a confusion m
 - *True positive* - Real example correctly classified as real; $D(x) \approx 1$
 - *False negative* - Real example incorrectly classified as fake; $D(x) \approx 0$
 - *True negative* - Fake example correctly classified as fake; $D(x´) \approx 0$
-- *False positive* - Fake example incorrectly classified as real; $D(x´) \approx 0$
+- *False positive* - Fake example incorrectly classified as real; $D(x´) \approx 1$
 
 ### GAN training algorithm
 ***For*** each training iteration ***do***
