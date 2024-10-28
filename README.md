@@ -86,5 +86,54 @@ $$
 D_{\text{KL}}(P\parallel Q) = \sum_{x \in \xi} P(x) \log \left( \frac{P(x)}{Q(x)} \right)
 $$
 
+## **Generative Adversarial Networks - GANs**
+
+The main components of *GANs* are  the Generator and the Discriminator, that are represented by differentiable functions, such as neural networks, each with its own cost function. The two networks are trained by *backpropagation* by using the *Discriminator’s loss*. The Discriminator strives to *minimize* the loss for both the real and the fake examples, while the Generator tries to *maximize* the Discriminator’s loss for the fake examples it produces. This dynamic is summarized in the figure bellow.
+
+![Autoencoder](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/train_ganX.svg)
+
+Importantly, the training dataset determines the kind of examples the Generator will learn to emulate. If, for instance, our goal is to produce realistic-looking images of mice, we would supply our GAN with a dataset of mouse images.
+
+The Generator’s goal is to produce examples that capture the data distribution of the training dataset. Object recognition models learn the patterns in images to discern an image’s content. The Generator can be thought of as the reverse of the process: rather than recognizing these patterns, it learns to synthesize them.
+
+### Cost functions
+
+*GANs* differ from conventional neural networks in two key respects. First, the cost function, ***$J$***, of a traditional neural network is defined exclusively in terms of its own trainable parameters, ***$\theta$***. Mathematically, this is expressed as ***$J(\theta)$***. In contrast, *GANs* consist of two networks whose cost functions are dependent on *both* of the networks’ parameters. That is, the Generator’s cost function is ***$J^{(G)}(\theta^{(G)}, \theta^{(D)})$***, and the Discriminator’s cost function is ***$J^{(D)}(\theta^{(G)}, \theta^{(D)})$***. 
+
+The second (related) difference is that a traditional neural network can tune all its parameters, $\theta$, during the training process. In a *GAN*, each network can tune only its own weights and biases. The Generator can tune only $\theta^{(G)}$, and the Discriminator can tune only $\theta^{(D)}$ during training. Accordingly, each network has control over only a part of what determines its loss.
+
+### Training process
+
+Because the Generator and Discriminator can tune only their own parameters and not each other’s, *GAN* training can be better described as a game, rather than optimization. *GAN* training ends when the two networks reach *Nash equilibrium*, a point in a game at which neither player can improve their situation by changing their strategy.
+
+Mathematically, this occurs when the Generator cost ***$J^{(G)}(\theta^{(G)}, \theta^{(D)})$*** is minimized with respect to the Generator’s trainable parameters ***$\theta(G)$*** and, simultaneously, the Discriminator cost ***$J^{(D)}(\theta^{(G)}, \theta^{(D)})$*** is minimized with respect to the parameters under this network’s control, ***$\theta(D)$***.
+
+### The Generator and the Discriminator
+
+The Generator $(G)$ takes in a random noise vector $z$ and produces a fake example $x´$. Mathematically, $G(z) = x´$. The Discriminator $(D)$ is presented either with a real example $x$ or with a fake example $x´$; for each input, it outputs a value between $0$ and $1$ indicating the probability that the input is real. 
+
+The Discriminator’s goal is to be as accurate as possible. For the real examples $x$, $D(x)$ seeks to be as close as possible to $1$ (label for the positive class). For fake examples $x´$, $D(x´)$ strives to be as close as possible to $0$ (label for the negative class). The Generator’s goal is the opposite. It seeks to fool the Discriminator by producing fake examples $x´$ that are indistinguishable from the real data in the training dataset. Mathematically, the Generator strives to produce fake examples $x´$ such that $D(x´)$ is as close to $1$ as possible.
+
+### Confusion matrix
+
+The Discriminator’s classifications can be expressed in terms of a confusion matrix, a tabular representation of all the possible outcomes in binary classification. In the case of the Discriminator, these are as follows:
+- *True positive* - Real example correctly classified as real; $D(x) \approx 1$
+- *False negative* - Real example incorrectly classified as fake; $D(x) \approx 0$
+- *True negative* - Fake example correctly classified as fake; $D(x´) \approx 0$
+- *False positive* - Fake example incorrectly classified as real; $D(x´) \approx 0$
+
+### GAN training algorithm
+***For*** each training iteration ***do***
+1. Train the Discriminator
+    - Take a random mini-batch of real examples: $x$.
+    - Take a mini-batch of random noise vectors $z$ and generate a mini-batch of fake examples: $G(z) = x´$.
+    - Compute the classification losses for $D(x)$ and $D(x´)$, and backpropagate the total error to update $\theta^{(D)}$ to minimize the classification loss.
+2. Train the Generator
+    - Take a mini-batch of random noise vectors z and generate a mini-batch of fake examples: $G(z) = x´$.
+    - Compute the classification loss for $D(x´)$, and backpropagate the loss to update $\theta^{(G)}$ to maximize the classification loss.
+
+***End for***
+
+
 ## References
 - [GANs in Action](https://www.google.de/books/edition/GANs_in_Action/HojvugEACAAJ?hl=en)
