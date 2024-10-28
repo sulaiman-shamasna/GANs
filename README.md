@@ -90,7 +90,7 @@ $$
 
 The main components of *GANs* are  the Generator and the Discriminator, that are represented by differentiable functions, such as neural networks, each with its own cost function. The two networks are trained by *backpropagation* by using the *Discriminator’s loss*. The Discriminator strives to *minimize* the loss for both the real and the fake examples, while the Generator tries to *maximize* the Discriminator’s loss for the fake examples it produces. This dynamic is summarized in the figure bellow.
 
-![Autoencoder](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/train_ganX.svg)
+![Autoencoder](https://github.com/sulaiman-shamasna/GANs/blob/main/plots/train_ganY.svg)
 
 Importantly, the training dataset determines the kind of examples the Generator will learn to emulate. If, for instance, our goal is to produce realistic-looking images of mice, we would supply our GAN with a dataset of mouse images.
 
