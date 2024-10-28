@@ -98,7 +98,7 @@ The Generator’s goal is to produce examples that capture the data distribution
 
 ### Cost functions
 
-*GANs* differ from conventional neural networks in two key respects. First, the cost function, ***$J$***, of a traditional neural network is defined exclusively in terms of its own trainable parameters, ***$\theta$***. Mathematically, this is expressed as ***$J(\theta)$***. In contrast, *GANs* consist of two networks whose cost functions are dependent on *both* of the networks’ parameters. That is, the Generator’s cost function is ***$J^{(G)}(\theta^{(G)}, \theta^{(D)})$***, and the Discriminator’s cost function is ***$J^{(D)}(\theta^{(G)}, \theta^{(D)})$***. 
+*GANs* differ from conventional neural networks in two key respects. First, the cost function, $J$, of a traditional neural network is defined exclusively in terms of its own trainable parameters, $\theta$. Mathematically, this is expressed as $J(\theta)$. In contrast, *GANs* consist of two networks whose cost functions are dependent on *both* of the networks’ parameters. That is, the Generator’s cost function is $J^{(G)}(\theta^{(G)}, \theta^{(D)})$, and the Discriminator’s cost function is $J^{(D)}(\theta^{(G)}, \theta^{(D)})$. 
 
 The second (related) difference is that a traditional neural network can tune all its parameters, $\theta$, during the training process. In a *GAN*, each network can tune only its own weights and biases. The Generator can tune only $\theta^{(G)}$, and the Discriminator can tune only $\theta^{(D)}$ during training. Accordingly, each network has control over only a part of what determines its loss.
 
@@ -106,7 +106,7 @@ The second (related) difference is that a traditional neural network can tune al
 
 Because the Generator and Discriminator can tune only their own parameters and not each other’s, *GAN* training can be better described as a game, rather than optimization. *GAN* training ends when the two networks reach *Nash equilibrium*, a point in a game at which neither player can improve their situation by changing their strategy.
 
-Mathematically, this occurs when the Generator cost ***$J^{(G)}(\theta^{(G)}, \theta^{(D)})$*** is minimized with respect to the Generator’s trainable parameters ***$\theta(G)$*** and, simultaneously, the Discriminator cost ***$J^{(D)}(\theta^{(G)}, \theta^{(D)})$*** is minimized with respect to the parameters under this network’s control, ***$\theta(D)$***.
+Mathematically, this occurs when the Generator cost $J^{(G)}(\theta^{(G)}, \theta^{(D)})$ is minimized with respect to the Generator’s trainable parameters $\theta(G)$ and, simultaneously, the Discriminator cost $J^{(D)}(\theta^{(G)}, \theta^{(D)})$ is minimized with respect to the parameters under this network’s control, $\theta(D)$.
 
 ### The Generator and the Discriminator
 
