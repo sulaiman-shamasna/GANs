@@ -168,5 +168,33 @@ Importantly, the terms $\beta$ and $\gamma$ are trainable parameters, which—ju
 
 Batch normalization limits the amount by which updating the parameters in the previous layers can affect the distribution of inputs received by the current layer. This decreases any unwanted interdependence between parameters across layers, which helps speed up the network training process and increase its robustness, especially when it comes to network parameter initialization.
 
+## **Appendix** - The mathematical formulation of GANs
+
+**Notation:**
+
+- $x$: *Real data*
+- $z$: *Latent vector*
+- $G(z)$: *Fake data*
+- $D(x)$: *Discriminator's evaluation of real data*
+- $D(G(z))$: *Discriminator's evaluation of fake data*
+- $Error(a,b)$: *Error between $a$ and $b$*. 
+
+
+**The Discriminator**
+
+The goal of the discriminator is to correctly label generated images as false *(fake)* and real data points as true. Thus, the following *loss function* will be considered:
+
+$$
+L_{D} = Error(D(x), 1) + Error(D(G(z)), 0)
+$$
+
+**The Generator**
+
+The goal of the generator is to confuse the discriminator as much as possible such that it mis-classifes generated *(fake)* images as true. It's *loss function* looks like:
+
+$$
+L_{G} = Error(D(G(z)), 1)
+$$
+
 ## References
 - [GANs in Action](https://www.google.de/books/edition/GANs_in_Action/HojvugEACAAJ?hl=en)
