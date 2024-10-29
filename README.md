@@ -134,6 +134,39 @@ The Discriminator’s classifications can be expressed in terms of a confusion m
 
 ***End for***
 
+## **Deep Convolutional GANs - DCGANs**
+
+Unlike the *GAN* architecture implemented previously, in *DCGANs*, both the Generator and Discriminator are implemented as convolutional neural networks - *CNNs*. In fact, One of the key techniques used in this case is *batch normalization*, which helps stabilize the training process by normalizing inputs at each layer where it is applied. 
+
+### Batch normalization
+
+*Normalization* is the scaling of data so that it has zero mean and unit variance. This is accomplished by taking each data point $x$, subtracting the mean $\mu$, and dividing the result by the standard deviation, $\sigma$, as shown:
+
+$$
+\hat{x} = \frac{x - \mu}{\sigma}
+$$
+
+*Normalization* has several advantages. Perhaps most important, it makes comparisons between features with vastly different scales easier and, by extension, makes the training process less sensitive to the scale of the features.
+
+The insight behind *batch normalization* is that normalizing inputs alone may not go far enough when dealing with deep neural networks with many layers. As the input values flow through the network, from one layer to the next, they are scaled by the trainable parameters in each of those layers. And as the parameters get tuned by backpropagation, the distribution of each layer’s inputs is prone to change in subsequent training iterations, which destabilizes the learning process. In academia, this problem is known as *covariate shift*. Batch normalization solves it by scaling values in each minibatch by the mean and variance of that mini-batch.
+
+The way batch normalization is computed differs in several respects from the simple normalization equation we presented earlier. Let $\mu_{B}$ be the mean of the mini-batch $B$, and $\sigma_{B}^{2}$ be the variance of the mini-batch $B$. The normalized value $\hat{x}$ is computed as:
+
+$$
+\hat{x} = \frac{x - \mu_{B}}{\sqrt{\sigma^{2} + \epsilon}}
+$$
+
+The term $\epsilon$ (epsilon) is added for numerical stability primarily to avoid division by zero. It is set to a small positive constant value, such as 0.001.
+
+In batch normalization, we do not use these normalized values directly Instead, we multiply them by $\gamma$ (gamma) and add $\beta$ (beta) before passing them as inputs to the next layer; see equation bellow:
+
+$$
+y = \gamma \hat{x} + \beta
+$$
+
+Importantly, the terms $\beta$ and $\gamma$ are trainable parameters, which—just like weights and biases—are tuned during network training. The reason for this is that it may be beneficial for the intermediate input values to be standardized around a mean other than 0 and have a variance other than 1. Because $\beta$ and $\gamma$ are trainable, the network can learn what values work best.
+
+Batch normalization limits the amount by which updating the parameters in the previous layers can affect the distribution of inputs received by the current layer. This decreases any unwanted interdependence between parameters across layers, which helps speed up the network training process and increase its robustness, especially when it comes to network parameter initialization.
 
 ## References
 - [GANs in Action](https://www.google.de/books/edition/GANs_in_Action/HojvugEACAAJ?hl=en)
