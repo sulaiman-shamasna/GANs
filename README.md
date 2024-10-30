@@ -291,9 +291,8 @@ This condition intuitively means that if a sample xx is genuine, we expect $p_{d
 
 When training the generator, we fix the discriminator and analyze the value function with the optimal discriminator plugged in:
 
-$$
-V(G, D^*) = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \right] + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)} \right]
-$$
+$$ V(G, D^*) = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \right] + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)} \right] $$
+
 
 To simplify further, we can use logarithmic properties, arriving at:
 
