@@ -196,5 +196,168 @@ $$
 L_{G} = Error(D(G(z)), 1)
 $$
 
+**Binary Croee Entropy**
+
+The general formula for cross entropy is:
+
+$$
+H(p, q) = \mathbb{E}_{x \sim p(x)} \left[ -\log q(x) \right]
+$$
+
+In classification tasks, the random variable is discrete, allowing us to express the expectation as a summation:
+
+$$
+H(p, q) = -\sum_{x \in \chi} p(x) \log q(x)
+$$
+
+**Binary Cross Entropy Simplified**
+
+In the binary case, where there are only two labels ($0$ and $1$), the *cross-entropy* expression simplifies to:
+
+$$
+H(y, \hat{y}) = -\sum \left[ y \log(\hat{y}) + (1 - y) \log(1 - \hat{y}) \right]
+$$
+
+This formulation serves as our error function in binary classification problems, quantifying how closely the predicted and actual distributions align.
+
+**Application to GAN Loss Functions**
+
+In *GANs*, binary cross-entropy underpins the adversarial loss functions for the generator and discriminator. For the discriminator $D$, the objective function becomes:
+
+$$
+L_D = -\sum_{x \in \chi, z \in \zeta} \left[ \log(D(x)) + \log(1 - D(G(z))) \right]
+$$
+
+Similarly, for the generator $G$:
+
+$$
+L_G = -\sum_{z \in \zeta} \log(D(G(z)))
+$$
+
+The generator aims to minimize $L_G$​ such that $D(G(z))$ approaches $1$, fulfilling the objective of producing *"*realistic* samples.
+
+
+**Minor Caveats: The Minimax Formulation**
+
+In Goodfellow’s original *GAN* formulation, a maximization objective is proposed for the discriminator:
+
+$$
+\max_D \{ \log(D(x)) + \log(1 - D(G(z))) \}
+$$
+
+The $min-max$ setup can thus be summarized as:
+
+$$
+\min_G \max_D \{ \log(D(x)) + \log(1 - D(G(z))) \}
+$$
+
+The $mini-max$ setup highlights the adversarial nature of *GANs*, where the generator and discriminator are in continuous competition.
+
+**Model Optimization**
+
+With the loss functions defined for both the generator and discriminator, we can now move into the optimization process. This involves finding the best parameters for both models to minimize or maximize the loss functions effectively, a process that corresponds to the model's training.
+
+*Training the Discriminator*
+
+In training a *GAN*, we typically alternate between training the discriminator and the generator. When training the discriminator, the generator's parameters are assumed to be fixed.
+
+In the $min-max$ formulation, the objective can be expressed as a function of $G$ and $D$, called the value function:
+
+$$
+V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log(D(x)) \right] + \mathbb{E}_{z \sim p_z} \left[ \log(1 - D(G(z))) \right]
+$$
+
+To focus more on the generator's distribution, we introduce a new variable, $y=G(z)$, and use it to rewrite the value function:
+
+$$
+V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log(D(x)) \right] + \mathbb{E}_{y \sim p_g} \left[ \log(1 - D(y)) \right] = \int_{x \in \chi} p_{\text{data}}(x) \log(D(x)) + p_g(x) \log(1 - D(x)) \, dx
+$$
+
+The goal of the discriminator is to maximize this value function. Taking the partial derivative of $V(G,D)$ with respect to $D(x)$ yields the optimal discriminator condition:
+
+$$
+D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}
+$$
+
+Rearranging this, we get the formula for the optimal discriminator:
+
+$$
+D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} 
+$$
+
+This condition intuitively means that if a sample xx is genuine, we expect $p_{data​(x)}$ to be close to one, making $p_{g​(x)}$ approach zero. Thus, the optimal discriminator assigns a value close to $1$ for a real sample and $0$ for a generated one.
+
+*Training the Generator*
+
+When training the generator, we fix the discriminator and analyze the value function with the optimal discriminator plugged in:
+
+$$
+V(G, D^*) = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \right] + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)} \right]
+$$
+
+To simplify further, we can use logarithmic properties, arriving at:
+
+$$
+V(G, D^*) = -\log 4 + \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{\left(p_{\text{data}}(x) + p_g(x)\right) / 2} \right] + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{\left(p_{\text{data}}(x) + p_g(x)\right) / 2} \right]
+$$
+
+**Jensen-Shannon Divergence and GAN Training**
+
+The above simplification enables us to interpret the expectations in terms of ***Kullback-Leibler divergence***:
+
+$$
+V(G, D^*) = -\log 4 + D_{\text{KL}} \left( p_{\text{data}} \parallel \frac{p_{\text{data}} + p_g}{2} \right) + D_{\text{KL}} \left( p_g \parallel \frac{p_{\text{data}} + p_g}{2} \right)
+$$
+
+At this point, we reencounter the ***Jensen-Shannon divergence***, defined as:
+
+$$
+J(P, Q) = \frac{1}{2} \left( D(P \parallel R) + D(Q \parallel R) \right)
+$$
+
+This allows us to rewrite the expression from (...) in terms of $J_S$ divergence:
+
+$$
+V(G, D^*) = -\log 4 + 2 \cdot D_{\text{JS}} \left( p_{\text{data}} \parallel p_g \right)
+$$
+
+
+
+<!-- 
+**Model Optimization**
+
+Now that we have our loss functions, we can define the objective to optimize the parameters of both the generator and the discriminator.
+
+*Training the Discriminator*
+
+In practice, *GANs* are trained by alternating between optimizing the discriminator while keeping the generator fixed:
+
+$$
+V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}}[\log(D(x))] + \mathbb{E}_{z \sim p_z}[\log(1 - D(G(z)))]
+$$
+
+For an optimal discriminator $D^∗$:
+
+$$
+D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}
+$$
+
+*Training the Generator*
+
+With $D^∗$ fixed, we focus on optimizing $G$. Using our substitution, the value function can be reformulated as:
+
+$$
+V(G, D^*) = -\log 4 + 2 \cdot D_{\text{JS}}(p_{\text{data}} \parallel p_g)
+$$
+
+Minimizing the Jensen-Shannon divergence, $D_{JS}$​, aligns the generator distribution $p_g$​ with the true data distribution $p_{data}$​. -->
+
+
+
+
+
+
+
+
 ## References
 - [GANs in Action](https://www.google.de/books/edition/GANs_in_Action/HojvugEACAAJ?hl=en)
