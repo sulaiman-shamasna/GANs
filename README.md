@@ -291,14 +291,18 @@ This condition intuitively means that if a sample xx is genuine, we expect $p_{d
 
 When training the generator, we fix the discriminator and analyze the value function with the optimal discriminator plugged in:
 
-$$ V(G, D^*) = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \right] + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)} \right] $$
+$$ V(G, D^*) = \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} \right] $$  
+$$ + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)} \right] $$
+
+
+<!-- ![Equation](https://latex.codecogs.com/png.latex?%5CLARGE%20V(G%2C%20D%5E*)%20%3D%20%5Cmathbb%7BE%7D_%7Bx%20%5Csim%20p_%7B%5Ctext%7Bdata%7D%7D%7D%20%5Cleft%5B%20%5Clog%20%5Cfrac%7Bp_%7B%5Ctext%7Bdata%7D%7D(x)%7D%7Bp_%7B%5Ctext%7Bdata%7D%7D(x)%20%2B%20p_g(x)%7D%20%5Cright%5D%20%2B%20%5Cmathbb%7BE%7D_%7Bx%20%5Csim%20p_g%7D%20%5Cleft%5B%20%5Clog%20%5Cfrac%7Bp_g(x)%7D%7Bp_%7B%5Ctext%7Bdata%7D%7D(x)%20%2B%20p_g(x)%7D%20%5Cright%5D) -->
 
 
 To simplify further, we can use logarithmic properties, arriving at:
 
-$$
-V(G, D^*) = -\log 4 + \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{\left(p_{\text{data}}(x) + p_g(x)\right) / 2} \right] + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{\left(p_{\text{data}}(x) + p_g(x)\right) / 2} \right]
-$$
+$$ V(G, D^*) = -\log 4 + \mathbb{E}_{x \sim p_{\text{data}}} \left[ \log \frac{p_{\text{data}}(x)}{\left(p_{\text{data}}(x) + p_g(x)\right) / 2} \right] $$  
+$$ + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{\left(p_{\text{data}}(x) + p_g(x)\right) / 2} \right] $$
+
 
 **Jensen-Shannon Divergence and GAN Training**
 
