@@ -170,7 +170,7 @@ Batch normalization limits the amount by which updating the parameters in the pr
 
 ## **Appendix** - The mathematical formulation of GANs
 
-
+- [Mathematical Formulation of GANs by Sulaiman Shamasna](https://github.com/sulaiman-shamasna/GANs/blob/main/docs/GANs.pdf)
 <!-- 
 **Model Optimization**
 
